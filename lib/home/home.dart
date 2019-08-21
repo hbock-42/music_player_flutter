@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:fluttery_audio/fluttery_audio.dart';
 import 'package:music_player/AudioVisualizer/AudioVisualizerWidget.dart';
@@ -79,8 +81,9 @@ class _HomeState extends State<Home> implements AudioPlayerListener {
                   color: Theme.of(context).primaryColor,
                 )),
             if (recordAudioPermissionGranted) AudioVisualizerWidget(
-              builder: (BuildContext context, List<double> fft) {
-                return Container(width: 60, height: 60, color: Theme.of(context).primaryColorLight,);
+              builder: (BuildContext context, double decibel) {
+                double newHeight = -(math.max(-100.0, math.min(decibel, 0.0)));
+                return Container(width: 60, height: newHeight, color: Theme.of(context).primaryColorLight,);
               },
             ),
           ],

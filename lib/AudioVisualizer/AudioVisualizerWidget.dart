@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttery_audio/fluttery_audio.dart';
 
 class AudioVisualizerWidget extends StatefulWidget {
-  final Function(BuildContext context, List<double> fft) builder;
+  final Function(BuildContext context, double decibel) builder;
 
   AudioVisualizerWidget({
     this.builder,
@@ -14,7 +14,7 @@ class AudioVisualizerWidget extends StatefulWidget {
 
 class _AudioVisualizerWidgetState extends State<AudioVisualizerWidget> {
   AudioVisualizer audioVisualizer;
-  List<double> decibelSamples = const [];
+  double _decibel = 0;
 
   @override
   void initState() {
@@ -22,15 +22,7 @@ class _AudioVisualizerWidgetState extends State<AudioVisualizerWidget> {
 
     audioVisualizer = FlutteryAudio.audioVisualizer()
       ..activate()
-      ..addListener(fftCallback: _onFftUpdate);
-
-//    audioVisualizer = FlutteryAudio.audioVisualizer()
-//      ..activate()
-//      ..addListener(
-//          fftCallback: (List<double> samples) {
-//            setState(() => decibelSamples = samples);
-//          }
-//      );
+      ..addListener(decibelCallback: _onDecibelUpdate);
   }
 
   @override
@@ -41,13 +33,13 @@ class _AudioVisualizerWidgetState extends State<AudioVisualizerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder(context, decibelSamples);
+    return widget.builder(context, _decibel);
   }
 
-  void _onFftUpdate(List<double> fftSamples) {
+  void _onDecibelUpdate(double decibel) {
     setState(() {
-      print('hello');
-      decibelSamples = fftSamples;
+      print(decibel);
+      _decibel = decibel;
     });
   }
 }

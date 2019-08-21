@@ -79,7 +79,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3b30ae832e4951f60368ea2c113fdde92a87b033"
+      resolved-ref: "5d01b64267cdd9a1843489dc3b806a5e432e1b5e"
       url: "https://github.com/hbock-42/fluttery_audio"
     source: git
     version: "0.0.4"
